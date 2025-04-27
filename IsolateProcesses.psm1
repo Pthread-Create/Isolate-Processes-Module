@@ -25,7 +25,7 @@ function isolateProcesses {
 	# Check if ran as admin
 	if (!(New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)){
 		#elevate script and exit current non-elevated runtime
-		Start-Process -FilePath 'powershell' -ArgumentList "-File $($MyInvocation.MyCommand.Source) -core $($core) -name $($name)" -Verb RunAs
+		Start-Process -FilePath 'powershell' -ArgumentList "$($MyInvocation.MyCommand) -core $($core) -name $($name)" -Verb RunAs
 		exit 0
 	}else{
 		if($name -match '^(.+)\.\w+$'){
